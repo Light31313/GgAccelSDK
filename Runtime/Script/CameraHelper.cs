@@ -6,7 +6,7 @@ namespace GgAccel
     {
         private static Camera _camera;
 
-        public static Camera Camera
+        public static Camera GameCamera
         {
             get
             {
@@ -17,24 +17,28 @@ namespace GgAccel
 
         public static Vector2 GetWorldPositionOfCanvasElement(RectTransform element)
         {
-            RectTransformUtility.ScreenPointToWorldPointInRectangle(element, element.position, Camera, out var result);
+            RectTransformUtility.ScreenPointToWorldPointInRectangle(element, element.position, GameCamera, out var result);
             return result;
         }
 
         public static Vector2 ScreenToWorldPoint(Vector3 position)
         {
-            return Camera.ScreenToWorldPoint(position);
+            return GameCamera.ScreenToWorldPoint(position);
         }
 
         public static void SetOrthographicSize(float size)
         {
-            Camera.orthographicSize = size;
+            GameCamera.orthographicSize = size;
         }
 
         public static Vector2 GetMousePositionInWorldPoint()
         {
-            return Camera.ScreenToWorldPoint(Input.mousePosition);
+            return GameCamera.ScreenToWorldPoint(Input.mousePosition);
+        }
+
+        public static Ray ScreenPointToRay(Vector3 pos)
+        {
+            return GameCamera.ScreenPointToRay(pos);
         }
     }
 }
-
